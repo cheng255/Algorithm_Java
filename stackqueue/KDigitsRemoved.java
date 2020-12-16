@@ -1,4 +1,4 @@
-package com.cheng.stack;
+package com.cheng.stackqueue;
 
 import java.util.Deque;
 import java.util.LinkedList;
