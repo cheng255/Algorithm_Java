@@ -26,26 +26,25 @@ public class WindowsMaxArray {
      * 3.如果比队列尾部元素小，那么直接入队列
      */
     private static int[] windowsMaxArray(int[] arr, int n) {
-        if (arr == null || arr.length < n) {
-            throw new RuntimeException("窗口大小不符合要求");
+        if (arr == null || arr.length < n || n < 1) {
+            throw new RuntimeException("窗口过小或者数组为空");
         }
-        int[] maxArray = new int[arr.length - n + 1];
-        Deque<Integer> window = new LinkedList<>(); //窗口队列的意义是存储当前的尚未过期的子窗口最大值的下标
-        //初始化窗口 和 第一个窗口的最大值
+        int[] res = new int[arr.length - n + 1];//存放每个窗口的最大值
+        Deque<Integer> window = new LinkedList<>();//存放窗口内所有没有过期的值，整体是从大到小的，队列头部是最大值
+        //（如果在同一窗口内，当前值的后面有比他还大或者和他相等的值，那么他就是过期值）
         for (int i = 0, j = 0; i < arr.length; i++) {
             while (!window.isEmpty() && arr[i] >= arr[window.peekLast()]) {
-                //2
                 window.pollLast();
             }
             window.addLast(i);
-            if (window.peekFirst() == i - n) {
+            if (window.peekFirst() == i - n) { //超过窗口长度的值也是过期值
                 window.pollFirst();
             }
             if (i >= n - 1) {
-                //到这窗口内就是从大到小的序列 ,第一个最大值就是window.peekFirst;
-                maxArray[j++] = arr[window.peekFirst()];
+                //将每一个最大值都存放
+                res[j++] = arr[window.peekFirst()];
             }
         }
-        return maxArray;
+        return res;
     }
 }
