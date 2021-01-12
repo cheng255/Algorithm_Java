@@ -13,7 +13,7 @@ public class ReservePart {
         node.next.next = new Node(3);
         node.next.next.next = new Node(4);
         node.next.next.next.next = new Node(5);
-        System.out.println(reserveLinkedListPart(node, 1,5));
+        System.out.println(reserveLinkedListPart(node, 1,4));
     }
     /**
      * 思路：  和反转整个链表类似，只需要在from到to的区域才进行反转就行了
@@ -26,13 +26,13 @@ public class ReservePart {
     private static Node reserveLinkedListPart(Node node, int from, int to) {
         Node pre = null, cur = node, next = null;
         Node left = null, right = null;//需要反转的区域的外边界
-        int t = 1;
+        int t = 0;
         while (cur != null) {
             t++;
             if (t < from) { //1,。当from之前的区域，不断更新left边界
                 pre = cur;
-                cur = cur.next;
                 left = cur;//更新边界
+                cur = cur.next;
                 continue;
             }
             if (t > to) {//2.到达to之后的区域，更新right区域
@@ -63,10 +63,7 @@ public class ReservePart {
 
         @Override
         public String toString() {
-            return "Node{" +
-                    "next=" + next +
-                    ", val=" + val +
-                    '}';
+            return val + " " + next;
         }
 
         public Node(int val) {
