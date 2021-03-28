@@ -1,4 +1,4 @@
-package com.cheng.other;
+package com.cheng.other.蓝桥杯2014;
 
 import java.math.BigInteger;
 import java.util.Arrays;
