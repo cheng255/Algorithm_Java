@@ -156,6 +156,40 @@ public class 前中后序遍历 {
             System.out.print(s2.pop().val);
         }
     }
+
+
+    //后序
+    public static void postOrder4(Node head) {
+        System.out.println("postOrder3:");
+        if (head == null) {
+            return;
+        }
+        Stack<Node> stack = new Stack<>();
+        stack.push(head);
+        Node cur;
+        while (!stack.isEmpty()) {
+            cur = stack.peek();//1.先拿出这个节点
+            if (cur.left != null && cur.left != head && cur.right != null && cur.right != head) {
+                //2.这个if表示后序遍历中左树还没走完的情况，就继续走左树
+                //或者说 表示左边还有，且不是从左右子树返回来的   先把左边的全部加入栈
+                stack.push(cur.left);
+            } else if (cur.right != null && cur.right != head) {
+                //3.这个if表示左树走完了的情况，现在去右树
+                //或者说 表示是从左子树过来的，此时应该加入右子树
+                stack.push(cur.right);
+            } else {
+                //4.这个if表示左右都走完了，现在将这个节点打印
+                //或者说 表示要不是叶子结点要不就是右子树过来的，总之左右子树都遍历结束
+                System.out.println(cur.val + " ");
+                //5.把当前结点记录下来，表示下一个该遍历到的结点的前置结点
+                head = cur;
+            }
+        }
+    }
+
+
+
+
     public static void postOrder3(Node head) {
         System.out.println("postOrder3:");
         if (head == null) {
